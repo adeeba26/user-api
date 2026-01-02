@@ -16,12 +16,14 @@ app.get("/api/test", (req, res) => {
 });
 
 mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB connected"))
-  .catch(err => console.error(err));
+  .then(() => {
+    console.log("MongoDB connected");
 
-const PORT = process.env.PORT || 5000;
-
-app.listen(PORT, () => {
-  console.log(`Server started on port ${PORT}`);
-});
+    app.listen(process.env.PORT || 5000, () => {
+      console.log("Server started");
+    });
+  })
+  .catch(err => {
+    console.error("MongoDB connection error:", err);
+  });
 
