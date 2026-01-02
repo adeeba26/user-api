@@ -19,11 +19,12 @@ mongoose.connect(process.env.MONGO_URI)
   .then(() => {
     console.log("MongoDB connected");
 
-    app.listen(process.env.PORT || 5000, () => {
-      console.log("Server started");
+    const PORT = process.env.PORT || 5000;
+    app.listen(PORT, "0.0.0.0", () => {
+      console.log(`Server started on port ${PORT}`);
     });
   })
   .catch(err => {
     console.error("MongoDB connection error:", err);
+    process.exit(1); // 👈 IMPORTANT for Render
   });
-
